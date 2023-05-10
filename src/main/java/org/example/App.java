@@ -28,13 +28,19 @@ class App
       while(resultSet.next()) {
           System.out.println(resultSet.getString(1) + " ---> " + resultSet.getString(2));
       }
-
-            ResultSet resultSet1 = statement.executeQuery("select o.order_Id, o.order_date, o.order_quantity, order_price from orders o  \n" +
-                    "join customers c on \n" +
-                    "o.customer_Id=c.customer_Id\n" +
-                    "where customer_Name='Akhila';");
+//order summary
+            ResultSet resultSet1 = statement.executeQuery("select * from orders where customer_Id=1;");
             while(resultSet1.next()) {
-                System.out.println(resultSet1.getInt(1) + " ---> " + resultSet1.getInt(2)+" --> "+resultSet1.getDate(3)+" --> "+resultSet1.getInt(4));
+                System.out.println(resultSet1.getInt(1) + " ---> " + resultSet1.getDate(5)+" --> "+resultSet1.getInt(6));
+            }
+
+//near by restaurants
+            ResultSet nearbyRestaurant = statement.executeQuery("select * from sql_food_delivery.restaurants r \n" +
+                    "join sql_food_delivery.customers c \n" +
+                    "on r.restaurant_City = c.customer_city \n" +
+                    "where  c.customer_name='Akhila';");
+            while(nearbyRestaurant.next()){
+                System.out.println(nearbyRestaurant.getString(2)+" "+nearbyRestaurant.getString(3)+" "+nearbyRestaurant.getString(4));
             }
 
 
